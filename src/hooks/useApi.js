@@ -43,6 +43,18 @@ const useApi = () => {
     return await axiosClient.apiClient('DELETE', 'menus/'+menuId+'/delete/');
   }
 
+  const shops = async () => {
+    return await axiosClient.apiClient('GET', 'shops/');
+  }
+
+  const shop = async (id) => {
+    return await axiosClient.apiClient('GET', 'shops/' + id + '/');
+  }
+
+  const userOrders = async (id) => {
+    return await axiosClient.apiClient('GET', 'user-orders/' + id + '/');
+  }
+
   return {
     login,
     register,
@@ -53,7 +65,10 @@ const useApi = () => {
     addMenu,
     menus,
     updateMenu,
-    deleteMenu
+    deleteMenu,
+    shops,
+    shop,
+    userOrders
   };
 }
 

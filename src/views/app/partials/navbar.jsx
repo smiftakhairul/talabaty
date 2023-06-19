@@ -8,12 +8,18 @@ const Navbar = () => {
             <p className="menu-title style-1">Main Menu</p>
             <ul className="metismenu" id="menu">
               <li>
-                <a href="#" aria-expanded="false">
+                <Link to="/dashboard" aria-expanded="false">
                   <i className="bi bi-grid"></i>
                   <span className="nav-text">Dashboard</span>
-                </a>
+                </Link>
               </li>
               <li>
+                <Link to="/orders" aria-expanded="false">
+                  <i className="bi bi-shop-window"></i>
+                  <span className="nav-text">Orders</span>
+                </Link>
+              </li>
+              {/* <li>
                 <a className="has-arrow" href="#" onClick={(e) => e.preventDefault()} aria-expanded="false">
                   <i className="bi bi-shop-window"></i>
                   <span className="nav-text">My Shop</span>
@@ -23,7 +29,7 @@ const Navbar = () => {
                   <li><Link to="orders.html">Orders</Link></li>
                   <li><Link to="customer-reviews.html">Reviews</Link></li>
                 </ul>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

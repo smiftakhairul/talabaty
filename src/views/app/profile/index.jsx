@@ -48,7 +48,7 @@ const Profile = () => {
                       <div
                         className="cover-photo rounded"
                         style={{
-                          background: "url("+ (profile?.banner_image || "../images/profile/cover.jpg") +")",
+                          background: "url("+ ("../images/profile/cover.jpg") +")",
                           backgroundSize: "cover",
                           backgroundPosition: "center",
                           minHeight: "15.625rem",

@@ -51,7 +51,7 @@ const UpdateProfile = () => {
     formData?.location && profileForm.append('location', formData?.location);
     formData?.description && profileForm.append('description', formData?.description);
     profileInputRef.current.files[0] && profileForm.append('profile_image', profileInputRef.current.files[0]);
-    bannerInputRef.current.files[0] && profileForm.append('banner_image', bannerInputRef.current.files[0]);
+    profileInputRef.current.files[0] && profileForm.append('banner_image', profileInputRef.current.files[0]);
 
     api
       .updateUser(userState?.id, userForm)
@@ -95,19 +95,19 @@ const UpdateProfile = () => {
                       <div className="row">
                         <div className="col-xl-6">
                           <label className="form-label">Name</label>
-                          <input type="text" name="first_name" className="form-control mb-3" placeholder="Shop Name" defaultValue={userState?.first_name} required />
+                          <input type="text" name="first_name" className="form-control mb-3" placeholder="Name" defaultValue={userState?.first_name} required />
                         </div>
                         <div className="col-xl-6">
                           <label className="form-label">Email</label>
-                          <input type="email" name="email" className="form-control mb-3" placeholder="Shop Email" defaultValue={userState?.email} required />
+                          <input type="email" name="email" className="form-control mb-3" placeholder="Email" defaultValue={userState?.email} required />
                         </div>
                         <div className="col-xl-6">
                           <label className="form-label">Username</label>
-                          <input type="text" name="username" className="form-control mb-3" placeholder="Shop Username" defaultValue={userState?.username} readOnly required />
+                          <input type="text" name="username" className="form-control mb-3" placeholder="Username" defaultValue={userState?.username} readOnly required />
                         </div>
                         <div className="col-xl-6">
                           <label className="form-label">Phone</label>
-                          <input type="text" name="phone" className="form-control mb-3" placeholder="Shop Phone" defaultValue={userState?.phone} required />
+                          <input type="text" name="phone" className="form-control mb-3" placeholder="Phone" defaultValue={userState?.phone} required />
                         </div>
                       </div>
                     </div>
@@ -116,7 +116,7 @@ const UpdateProfile = () => {
                       <div className="row">
                         <div className="col-xl-12">
                           <label className="form-label">Location</label>
-                          <input type="text" name="location" className="form-control mb-3" placeholder="Shop Location" defaultValue={profile?.location} required />
+                          <input type="text" name="location" className="form-control mb-3" placeholder="Location" defaultValue={profile?.location} required />
                         </div>
                         <div className="col-xl-12">
                           <label className="form-label">Description</label>
@@ -126,10 +126,10 @@ const UpdateProfile = () => {
                           <label className="form-label">Profile Image</label>
                           <input type="file" name="profileImage" className="form-control mb-3" placeholder="Shop Profile Image" ref={profileInputRef} />
                         </div>
-                        <div className="col-xl-12">
+                        {/* <div className="col-xl-12">
                           <label className="form-label">Banner Image</label>
                           <input type="file" name="bannerImage" className="form-control mb-3" placeholder="Shop Banner Image" ref={bannerInputRef} />
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     <div className="Security">
@@ -140,7 +140,7 @@ const UpdateProfile = () => {
                       <div className="row">
                         <div className="col-xl-12">
                           <label className="form-label">Passward</label>
-                          <input type="password" name="password" className="form-control mb-3" placeholder="Shop Password" required />
+                          <input type="password" name="password" className="form-control mb-3" placeholder="Password" required />
                           
                           <button type="button" className="btn btn-outline-primary float-end ms-3" onClick={() => navigate('/profile')}>Cancel</button>
                           <button type="submit" className="btn btn-primary float-end">Save</button>

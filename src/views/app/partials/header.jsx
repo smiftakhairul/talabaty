@@ -37,7 +37,7 @@ const Header = () => {
                     <div className="dropdown header-profile2">
                       <a className="nav-link" href="#" onClick={(e) => e.preventDefault()} role="button" data-bs-toggle="dropdown">
                         <div className="header-info2 d-flex align-items-center">
-                          <img src="images//avatar.png" alt="" />
+                          <img src="/images/avatar.png" alt="" />
                           <div className="d-flex align-items-center sidebar-info">
                             <div>
                               <h6 className="font-w500 mb-0 ms-2">{userState?.username}</h6>

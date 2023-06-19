@@ -26,7 +26,7 @@ const Login = () => {
           res?.data?.user && localStorage.setItem('user', JSON.stringify(res?.data?.user));
           setIsLoggedInState(true);
           setUserState(res?.data?.user);
-          navigate('/menus');
+          navigate('/dashboard');
         }
       })
       .catch(err => {
@@ -53,18 +53,18 @@ const Login = () => {
                   <div className="col-xl-4 col-md-6 pe-0">
                     <div className="sign-in-your mt-5">
                       <div className="text-center mb-3">
-                        <img src="images/talabaty.png" height="45" className="mb-3" alt="" /> <span className="text-warning"><b>Shop</b></span>
-                        <h4 className="fs-20 font-w800 text-black">Sign in as Shop</h4>
+                        <img src="images/talabaty.png" height="45" className="mb-3" alt="" /> <span className="text-warning"></span>
+                        <h4 className="fs-20 font-w800 text-black">Sign in to Order</h4>
                         <span className="dlab-sign-up">Sign In</span>
                       </div>
                       <form id="loginForm" action="#" onSubmit={login}>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Username</strong></label>
-                          <input type="text" name="username" className="form-control" required placeholder="Enter shop username" />
+                          <input type="text" name="username" className="form-control" required placeholder="Enter username" />
                         </div>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Password</strong></label>
-                          <input type="password" name="password" className="form-control" required placeholder="Enter shop password" />
+                          <input type="password" name="password" className="form-control" required placeholder="Enter password" />
                         </div>
                         <div className="row d-flex justify-content-between mt-4 mb-2">
                           <div className="mb-3">
@@ -82,7 +82,7 @@ const Login = () => {
                         </div>
                       </form>
                       <div className="text-center mt-3">
-                        <span>Shop is not registered yet?<Link to="/register" className="text-primary"> Create New</Link></span>
+                        <span>Not registered yet?<Link to="/register" className="text-primary"> Create New</Link></span>
                       </div>
                     </div>
                   </div>

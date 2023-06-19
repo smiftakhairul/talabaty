@@ -18,7 +18,7 @@ const Register = () => {
       .register(formData)
       .then(res => {
         if (res?.status === 201 && res?.data) {
-          notification.success('Shop registered successfully.');
+          notification.success('User registered successfully.');
           navigate('/login');
         }
       })
@@ -46,30 +46,30 @@ const Register = () => {
                   <div className="col-xl-4 col-md-6 pe-0">
                     <div className="sign-in-your">
                       <div className="text-center mb-3">
-                        <img src="images/talabaty.png" height="45" className="mb-3" alt="" /> <span className="text-warning"><b>Shop</b></span>
-                        <h4 className="fs-20 font-w800 text-black">Create new Shop</h4>
+                        <img src="images/talabaty.png" height="45" className="mb-3" alt="" /> <span className="text-warning"></span>
+                        <h4 className="fs-20 font-w800 text-black">Create new Account</h4>
                         <span className="dlab-sign-up">Sign Up</span>
                       </div>
                       <form id="registerForm" action="#" onSubmit={register}>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Name</strong></label>
-                          <input type="text" name="first_name" className="form-control" required placeholder="Enter shop name" />
+                          <input type="text" name="first_name" className="form-control" required placeholder="Enter name" />
                         </div>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Username</strong></label>
-                          <input type="text" name="username" className="form-control" required placeholder="Enter shop username" />
+                          <input type="text" name="username" className="form-control" required placeholder="Enter username" />
                         </div>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Email</strong></label>
-                          <input type="email" name="email" className="form-control" required placeholder="Enter shop email" />
+                          <input type="email" name="email" className="form-control" required placeholder="Enter email" />
                         </div>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Phone</strong></label>
-                          <input type="text" name="phone" className="form-control" required placeholder="Enter shop phone" />
+                          <input type="text" name="phone" className="form-control" required placeholder="Enter phone" />
                         </div>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Password</strong></label>
-                          <input type="password" name="password" className="form-control" required placeholder="Enter shop password" />
+                          <input type="password" name="password" className="form-control" required placeholder="Enter password" />
                         </div>
                         <div className="text-center">
                           <button type="submit" className="btn btn-primary btn-block shadow">Sign Up</button>
