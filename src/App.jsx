@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { isLoggedInStateAtom, userStateAtom } from './utils/states/common';
-import Menu from './views/app/menu';
-import Login from './views/auth/login';
-import Register from './views/auth/register';
+import AllOrder from './views/app/all-orders';
+import Dashboard from './views/app/dashboard';
+import Order from './views/app/order';
 import Profile from './views/app/profile';
 import UpdateProfile from './views/app/profile/update';
-import Dashboard from './views/app/dashboard';
 import Shop from './views/app/shop';
-import Order from './views/app/order';
+import Login from './views/auth/login';
+import Register from './views/auth/register';
 
 function App() {
   const setIsLoggedInState = useSetRecoilState(isLoggedInStateAtom);
@@ -33,6 +33,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/shop/:id" element={<Shop />} />
           <Route path="/orders" element={<Order />} />
+          <Route path="/all-orders" element={<AllOrder />} />
           <Route path="*" element={<Login />} />
         </Routes>
       </Router>

@@ -1,35 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+    const location = useLocation();
+
     return (
       <>
         <div className="dlabnav border-right">
           <div className="dlabnav-scroll">
             <p className="menu-title style-1">Main Menu</p>
             <ul className="metismenu" id="menu">
-              <li>
+              <li className={location.pathname === '/dashboard' ? 'mm-active' : ''}>
                 <Link to="/dashboard" aria-expanded="false">
                   <i className="bi bi-grid"></i>
-                  <span className="nav-text">Dashboard</span>
+                  <span className="nav-text">Browse Foods</span>
                 </Link>
               </li>
-              <li>
+              <li className={location.pathname === '/orders' ? 'mm-active' : ''}>
                 <Link to="/orders" aria-expanded="false">
-                  <i className="bi bi-shop-window"></i>
-                  <span className="nav-text">Orders</span>
+                  <i className="bi bi-bicycle"></i>
+                  <span className="nav-text">Ongoing Orders</span>
                 </Link>
               </li>
-              {/* <li>
-                <a className="has-arrow" href="#" onClick={(e) => e.preventDefault()} aria-expanded="false">
+              <li className={location.pathname === '/all-orders' ? 'mm-active' : ''}>
+                <Link to="/all-orders" aria-expanded="false">
                   <i className="bi bi-shop-window"></i>
-                  <span className="nav-text">My Shop</span>
-                </a>
-                <ul aria-expanded="false">
-                  <li><Link to="/menus">Menu</Link></li>
-                  <li><Link to="orders.html">Orders</Link></li>
-                  <li><Link to="customer-reviews.html">Reviews</Link></li>
-                </ul>
-              </li> */}
+                  <span className="nav-text">All Orders</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

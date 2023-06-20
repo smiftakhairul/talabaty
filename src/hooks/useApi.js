@@ -55,6 +55,10 @@ const useApi = () => {
     return await axiosClient.apiClient('GET', 'user-orders/' + id + '/');
   }
 
+  const userPaginatedOrders = async (id, page = 1) => {
+    return await axiosClient.apiClient('GET', 'user-paginated-orders/' + id + '/?page=' + page);
+  }
+
   return {
     login,
     register,
@@ -68,7 +72,8 @@ const useApi = () => {
     deleteMenu,
     shops,
     shop,
-    userOrders
+    userOrders,
+    userPaginatedOrders
   };
 }
 
