@@ -53,12 +53,6 @@ const AllOrder = () => {
               </li>
             })
           }
-
-          {/* <li className="page-item active"><a className="page-link" href="javascript:void(0)">1</a>
-          </li>
-          <li className="page-item"><a className="page-link" href="javascript:void(0)">2</a></li>
-          
-          <li className="page-item"><a className="page-link" href="javascript:void(0)">3</a></li> */}
           {orders?.orders?.next && <li className="page-item page-indicator" onClick={() => getOrders(orders?.orders?.current_page + 1)}>
             <a className="page-link" href="#" onClick={(e) => e.preventDefault()}>
               <i className="la la-angle-right"></i></a>
@@ -144,72 +138,10 @@ const AllOrder = () => {
                                                     </Fragment>
                                                 })}
                                             </td>
-                                            {/* <td>
-                                                <div className="dropdown dropstart">
-                                                    <a href="javascript:void(0);" className="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                                        <path d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                                        <path d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                                    </svg>
-                                                    </a>
-                                                    <div className="dropdown-menu">
-                                                    <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addMenuModal" onClick={() => setModalMenu(menu)}>Edit</a>
-                                                    <a className="dropdown-item" href="#" onClick={(e) => {e.preventDefault(); deleteMenu(menu?.id)}}>Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td> */}
                                         </tr>
                                     </Fragment>
                                 })
                             }
-
-                            {/* {menus?.results?.map((menu, index) => {
-                              return <tr className={(index + 1 === menus?.results?.length) ? "dlab-table-bottom-line" : ''} key={index}>
-                                <td><b>{index + 1}</b></td>
-                                <td>
-                                  <div className="media-bx d-flex py-3  align-items-center">
-                                    <img className="me-3 rounded-circle" src={menu?.profile_images?.length && menu?.profile_images[0]} alt="images" />
-                                    <div>
-                                      <h5 className="mb-0">{menu?.name}</h5>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p className="mb-0">{menu?.description}</p>
-                                  </div>
-                                </td>
-                                <td>IQD {menu?.price}</td>
-                                <td>IQD {menu?.discount_price}</td>
-                                <td>{menu?.category?.name}</td>
-                                <td>
-                                  <span className="badge badge-sm light badge-info">{menu?.is_favorite ? 'Yes' : 'No'}</span>
-                                </td>
-                                <td>
-                                  <span className="badge badge-sm light badge-info">{menu?.is_featured ? 'Yes' : 'No'}</span>
-                                </td>
-                                <td>
-                                  <span className={`badge badge-sm light badge-${menu?.status ? 'success' : 'danger'}`}>{menu?.status ? 'Active' : 'Inactive'}</span>
-                                </td>
-                                <td>{menu?.created_at ? moment(menu?.created_at).fromNow() : ''}</td>
-                                <td>
-                                  <div className="dropdown dropstart">
-                                    <a href="javascript:void(0);" className="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                        <path d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                        <path d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                      </svg>
-                                    </a>
-                                    <div className="dropdown-menu">
-                                      <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addMenuModal" onClick={() => setModalMenu(menu)}>Edit</a>
-                                      <a className="dropdown-item" href="#" onClick={(e) => {e.preventDefault(); deleteMenu(menu?.id)}}>Delete</a>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            })} */}
                           </tbody>
                         </table>
                       </div>

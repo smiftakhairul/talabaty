@@ -1,12 +1,22 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { isLoggedInStateAtom, userStateAtom } from "../../../utils/states/common";
+import { cartStateAtom, isLoggedInStateAtom, userStateAtom } from "../../../utils/states/common";
 import { Link, useNavigate } from "react-router-dom";
+import useApi from "../../../hooks/useApi";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from "swiper";
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import useNotification from "../../../hooks/useNotification";
 
 const Header = () => {
+  const api = useApi();
   const navigate = useNavigate();
   const setIsLoggedInState = useSetRecoilState(isLoggedInStateAtom);
   const [userState, setUserState] = useRecoilState(userStateAtom);
+  const [searchMenus, setSearchMenus] = useState([]);
+  const notification = useNotification();
+  const [cartState, setCartState] = useRecoilState(cartStateAtom);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -16,6 +26,71 @@ const Header = () => {
     navigate('/login');
   }
 
+  const getSearchMenus = (keyword) => {
+    api
+      .getSearchMenus(keyword)
+      .then(res => {
+        if (res?.data) {
+          setSearchMenus(res?.data);
+        }
+      })
+  }
+
+  const addMenuToCart = (menu, shop) => {
+    const existingShopIndex = cartState.findIndex(item => item.shop_id === menu?.user?.id);
+  
+    if (existingShopIndex !== -1) {
+      const existingMenuIndex = cartState.findIndex(item => item.menu_id === menu.id);
+
+      if (existingMenuIndex !== -1) {
+        const updatedCartState = [...cartState]; // Create a copy of the cartState array
+        const existingMenu = updatedCartState[existingMenuIndex]; // Get the existing menu from the copied array
+    
+        // Create a copy of the existingMenu object and update the quantity and total_price
+        const updatedMenu = {
+          ...existingMenu,
+          quantity: existingMenu.quantity + 1,
+          total_price: parseInt(parseFloat(existingMenu.unit_price) * (existingMenu.quantity + 1))
+        };
+    
+        updatedCartState[existingMenuIndex] = updatedMenu; // Replace the existingMenu with the updatedMenu
+        localStorage.setItem('cart', JSON.stringify(updatedCartState));
+        setCartState(updatedCartState); // Update the cartState with the updated array
+        console.log(updatedCartState);
+      } else {
+        let cartMenu = {
+          menu_id: menu?.id,
+          name: menu?.name,
+          unit_price: menu?.price,
+          shop_id: menu?.user?.id,
+          quantity: 1,
+          profile_image: menu?.profile_images?.length ? menu?.profile_images[0] : null,
+        };
+        cartMenu.total_price = parseInt(parseFloat(cartMenu.unit_price) * cartMenu.quantity);
+    
+        localStorage.setItem('cart', JSON.stringify([...cartState, cartMenu]));
+        setCartState([...cartState, cartMenu]);
+      }
+    } else {
+      let cartMenu = {
+        menu_id: menu?.id,
+        name: menu?.name,
+        unit_price: menu?.price,
+        shop_id: menu?.user?.id,
+        quantity: 1,
+        profile_image: menu?.profile_images?.length ? menu?.profile_images[0] : null,
+      };
+      cartMenu.total_price = parseInt(parseFloat(cartMenu.unit_price) * cartMenu.quantity);
+  
+      localStorage.setItem('cart', JSON.stringify([...cartState, cartMenu]));
+      setCartState([cartMenu]);
+    }
+
+    notification.success('Item added to cart.');
+    navigate('/shop/' + shop?.id);
+    setSearchMenus([]);
+  };
+
   return (
     <>
       <div className="header">
@@ -23,8 +98,59 @@ const Header = () => {
           <nav className="navbar navbar-expand">
             <div className="container d-block my-0">
               <div className="d-flex align-items-center justify-content-sm-between justify-content-end">
+
+
                 <div className="header-left">
-                  
+                  <div className="nav-item d-flex align-items-center">
+                    <div className="d-flex header-bx active">									
+                      
+                      <div className="input-group search-area2 ps-3" id="Serach-bar">
+                        <span className="input-group-text h-search"><a href="#" onClick={(e) => e.preventDefault()}><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M16.6751 19.4916C16.2195 19.036 16.2195 18.2973 16.6751 17.8417C17.1307 17.3861 17.8694 17.3861 18.325 17.8417L22.9917 22.5084C23.4473 22.964 23.4473 23.7027 22.9917 24.1583C22.5361 24.6139 21.7974 24.6139 21.3417 24.1583L16.6751 19.4916Z" fill="var(--primary)"></path>
+                        <path d="M12.8333 18.6667C16.055 18.6667 18.6666 16.055 18.6666 12.8333C18.6666 9.61168 16.055 7 12.8333 7C9.61163 7 6.99996 9.61168 6.99996 12.8333C6.99996 16.055 9.61163 18.6667 12.8333 18.6667ZM12.8333 21C8.32297 21 4.66663 17.3437 4.66663 12.8333C4.66663 8.32301 8.32297 4.66667 12.8333 4.66667C17.3436 4.66667 21 8.32301 21 12.8333C21 17.3437 17.3436 21 12.8333 21Z" fill="var(--primary)"></path>
+                        </svg>
+                        </a></span>
+                        <input type="text" className="form-control" placeholder="What do you want eat today" onChange={(e) => getSearchMenus(e.target.value)} />
+                        
+                      </div>
+                      {searchMenus.length > 0 && <div className="search-drop">
+                        <div className="card tag-bx">
+                          <div className="card-body">
+                            <h4>Search Results</h4>
+                            <Swiper
+                              spaceBetween={10}
+                              slidesPerView={4}
+                              onSlideChange={() => console.log('slide change')}
+                              onSwiper={(swiper) => console.log(swiper)}
+                              autoplay={{
+                                delay: 2500,
+                                // disableOnInteraction: false,
+                              }}
+                              modules={[Autoplay]}
+                            >
+                              {searchMenus?.map((menu, index) => {
+                                return <div className="custom-search-menus" key={index}>
+                                  <SwiperSlide onClick={() => addMenuToCart(menu, menu?.user)} key={index}>
+                                    {/* <div className="swiper-slide swiper-slide-prev" style={{width: '172.5px', marginRight: '20px'}}> */}
+                                      <div className="card mb-0">
+                                        <div className="card-body pb-2 pt-3">
+                                          <div className="text-center pop-cousin">
+                                            <img src={menu?.profile_images?.length && menu?.profile_images[0]} alt="" />
+                                            <a href="#" onClick={(e) => e.preventDefault()}><h6>{menu?.name}</h6></a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    {/* </div> */}
+                                  </SwiperSlide>
+                                </div>
+                              })}
+                            </Swiper>
+                          </div>
+                        </div>
+                        <div id="close-searchbox" className="active"></div>
+                      </div>}
+                    </div>
+                  </div>
                 </div>
 
                 <ul className="navbar-nav header-right">

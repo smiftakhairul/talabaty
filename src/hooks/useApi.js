@@ -63,6 +63,10 @@ const useApi = () => {
     return await axiosClient.apiClient('POST', 'orders/create/', data);
   }
 
+  const getSearchMenus = async (keyword) => {
+    return await axiosClient.apiClient('GET', 'menus/search/?keyword=' + keyword);
+  }
+
   return {
     login,
     register,
@@ -78,7 +82,8 @@ const useApi = () => {
     shop,
     userOrders,
     userPaginatedOrders,
-    createOrder
+    createOrder,
+    getSearchMenus
   };
 }
 

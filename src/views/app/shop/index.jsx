@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import useApi from "../../../hooks/useApi";
+import useNotification from "../../../hooks/useNotification";
 import CheckAuth from "../../../utils/middleware/check-auth";
+import { cartStateAtom, userStateAtom } from "../../../utils/states/common";
 import Header from "../partials/header";
 import NavHeader from "../partials/nav-header";
 import Navbar from "../partials/navbar";
 import PreLoader from "../partials/pre-loader";
-import { useNavigate, useParams } from "react-router-dom";
-import useApi from "../../../hooks/useApi";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { cartStateAtom, userStateAtom } from "../../../utils/states/common";
-import useNotification from "../../../hooks/useNotification";
 
 const Shop = () => {
   const api = useApi();
@@ -44,7 +44,7 @@ const Shop = () => {
   const proceedToCheckout = () => {
     if (cartState.length) {
       const uid = (new Date()).getTime();
-      let cart = cartState.map(({ name, profile_image, ...rest }) => rest);
+      let cart = cartState.map(({ name, profile_image, shop_id, ...rest }) => rest);
 
       let formData = new FormData();
       formData.append('uid', uid);
@@ -102,7 +102,6 @@ const Shop = () => {
         
         updatedCartState[existingMenuIndex] = updatedMenu; // Replace the existingMenu with the updatedMenu
       }
-      
       localStorage.setItem('cart', JSON.stringify(updatedCartState));
       setCartState(updatedCartState);
     }
@@ -126,34 +125,53 @@ const Shop = () => {
   }
 
   const addMenuToCart = (menu) => {
-    const existingMenuIndex = cartState.findIndex(item => item.menu_id === menu.id);
+    const existingShopIndex = cartState.findIndex(item => item.shop_id === menu?.user?.id);
   
-    if (existingMenuIndex !== -1) {
-      const updatedCartState = [...cartState]; // Create a copy of the cartState array
-      const existingMenu = updatedCartState[existingMenuIndex]; // Get the existing menu from the copied array
-  
-      // Create a copy of the existingMenu object and update the quantity and total_price
-      const updatedMenu = {
-        ...existingMenu,
-        quantity: existingMenu.quantity + 1,
-        total_price: parseInt(parseFloat(existingMenu.unit_price) * (existingMenu.quantity + 1))
-      };
-  
-      updatedCartState[existingMenuIndex] = updatedMenu; // Replace the existingMenu with the updatedMenu
-      localStorage.setItem('cart', JSON.stringify(updatedCartState));
-      setCartState(updatedCartState); // Update the cartState with the updated array
+    if (existingShopIndex !== -1) {
+      const existingMenuIndex = cartState.findIndex(item => item.menu_id === menu.id);
+
+      if (existingMenuIndex !== -1) {
+        const updatedCartState = [...cartState]; // Create a copy of the cartState array
+        const existingMenu = updatedCartState[existingMenuIndex]; // Get the existing menu from the copied array
+    
+        // Create a copy of the existingMenu object and update the quantity and total_price
+        const updatedMenu = {
+          ...existingMenu,
+          quantity: existingMenu.quantity + 1,
+          total_price: parseInt(parseFloat(existingMenu.unit_price) * (existingMenu.quantity + 1))
+        };
+    
+        updatedCartState[existingMenuIndex] = updatedMenu; // Replace the existingMenu with the updatedMenu
+        localStorage.setItem('cart', JSON.stringify(updatedCartState));
+        setCartState(updatedCartState); // Update the cartState with the updated array
+        console.log(updatedCartState);
+      } else {
+        let cartMenu = {
+          menu_id: menu?.id,
+          name: menu?.name,
+          unit_price: menu?.price,
+          shop_id: menu?.user?.id,
+          quantity: 1,
+          profile_image: menu?.profile_images?.length ? menu?.profile_images[0] : null,
+        };
+        cartMenu.total_price = parseInt(parseFloat(cartMenu.unit_price) * cartMenu.quantity);
+    
+        localStorage.setItem('cart', JSON.stringify([...cartState, cartMenu]));
+        setCartState([...cartState, cartMenu]);
+      }
     } else {
       let cartMenu = {
         menu_id: menu?.id,
         name: menu?.name,
         unit_price: menu?.price,
+        shop_id: menu?.user?.id,
         quantity: 1,
         profile_image: menu?.profile_images?.length ? menu?.profile_images[0] : null,
       };
       cartMenu.total_price = parseInt(parseFloat(cartMenu.unit_price) * cartMenu.quantity);
   
       localStorage.setItem('cart', JSON.stringify([...cartState, cartMenu]));
-      setCartState([...cartState, cartMenu]);
+      setCartState([cartMenu]);
     }
   };
   
@@ -212,7 +230,7 @@ const Shop = () => {
                                       <div className="card-footer border-0 pt-2">
                                         <div className="common d-flex align-items-center justify-content-between">
                                           <div>
-                                            <a href="javascript:void(0);"><h4>{menu?.name}</h4></a>
+                                            <a href="#" onClick={(e) => e.preventDefault()}><h4>{menu?.name}</h4></a>
                                             <h3 className=" mb-0 text-primary">IQD {menu?.price}</h3>
                                           </div>
                                           <div className="plus c-pointer" onClick={() => addMenuToCart(menu)}>

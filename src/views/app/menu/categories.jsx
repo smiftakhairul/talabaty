@@ -1,5 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from "swiper";
 import 'swiper/css';
+import 'swiper/css/autoplay';
 import { Fragment, useEffect, useState } from 'react';
 import useApi from '../../../hooks/useApi';
 
@@ -33,6 +35,11 @@ const Categories = () => {
         slidesPerView={6}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
+        autoplay={{
+          delay: 2500,
+          // disableOnInteraction: false,
+        }}
+        modules={[Autoplay]}
       >
         {categories.map((category, index) => {
           return <Fragment key={index}>

@@ -139,12 +139,6 @@ const Menu = () => {
               </li>
             })
           }
-
-          {/* <li className="page-item active"><a className="page-link" href="javascript:void(0)">1</a>
-          </li>
-          <li className="page-item"><a className="page-link" href="javascript:void(0)">2</a></li>
-          
-          <li className="page-item"><a className="page-link" href="javascript:void(0)">3</a></li> */}
           {menus?.next && <li className="page-item page-indicator" onClick={() => getMenus(menus?.current_page + 1)}>
             <a className="page-link" href="#" onClick={(e) => e.preventDefault()}>
               <i className="la la-angle-right"></i></a>
@@ -309,7 +303,7 @@ const Menu = () => {
                                 <td>{menu?.created_at ? moment(menu?.created_at).fromNow() : ''}</td>
                                 <td>
                                   <div className="dropdown dropstart">
-                                    <a href="javascript:void(0);" className="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a href="#" onClick={(e) => e.preventDefault()} className="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
                                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
                                         <path d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -366,7 +360,7 @@ const Menu = () => {
                               <div className="card-footer border-0 pt-2">
                                 <div className="common d-flex align-items-center justify-content-between">
                                   <div>
-                                    <a href="javascript:void(0);"><h4>{menu?.name}</h4></a>
+                                    <a href="#" onClick={(e) => e.preventDefault()}><h4>{menu?.name}</h4></a>
                                     <h3 className=" mb-0 text-primary">IQD {menu?.price}</h3>
                                   </div>
                                   {/* <div className="plus c-pointer">

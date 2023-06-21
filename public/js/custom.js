@@ -6,16 +6,16 @@
 	
 	
 	 var handleSearchArea = function(){
-		$("#Serach-bar").on('click', function() {
-			$(".header-bx").addClass('active');
-			$('#close-searchbox').addClass('active');
+		// $("#Serach-bar").on('click', function() {
+		// 	$(".header-bx").addClass('active');
+		// 	$('#close-searchbox').addClass('active');
 			
-		});
+		// });
 		
-		$("#close-searchbox").on('click',function() {
-			$(".header-bx").removeClass('active');
-			$(this).removeClass('active');
-		});  
+		// $("#close-searchbox").on('click',function() {
+		// 	$(".header-bx").removeClass('active');
+		// 	$(this).removeClass('active');
+		// });  
 	} 
 
 	var handleNiceSelect = function(){

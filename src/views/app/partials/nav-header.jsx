@@ -2,7 +2,7 @@ const NavHeader = () => {
   return (
     <>
       <div className="nav-header">
-        <a href="index.html" className="brand-logo">
+        <a href="#" onClick={(e) => e.preventDefault()} className="brand-logo">
           <svg className="logo-abbr" width="39" height="31" viewBox="0 0 39 31" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"

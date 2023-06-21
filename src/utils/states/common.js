@@ -17,6 +17,11 @@ export const cartStateAtom = atom({
   default: [],
 });
 
+export const shopIdStateAtom = atom({
+  key: 'shopIdStateAtom',
+  default: null,
+});
+
 export const orderStateAtom = atom({
   key: 'orderStateAtom',
   default: null,
