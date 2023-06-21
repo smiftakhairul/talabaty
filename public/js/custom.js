@@ -23,7 +23,7 @@
 			jQuery('.default-select').niceSelect();
 		}
 		if(jQuery('.dataTables_wrapper select').length > 0 ){
-			jQuery('.dataTables_wrapper select').selectpicker();
+			// jQuery('.dataTables_wrapper select').selectpicker();
 		}
 	}
 	

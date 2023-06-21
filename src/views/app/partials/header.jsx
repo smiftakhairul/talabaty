@@ -8,10 +8,6 @@ const Header = () => {
   const setIsLoggedInState = useSetRecoilState(isLoggedInStateAtom);
   const [userState, setUserState] = useRecoilState(userStateAtom);
 
-  useEffect(() => {
-    $('.selectpicker').selectpicker();
-  })
-
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
