@@ -313,11 +313,11 @@ const Shop = () => {
                               <div className="card-footer  pt-0 border-0">
                                 <div className="d-flex align-items-center justify-content-between">
                                   <p>Delivery Charge</p>
-                                  <h4 className="font-w500">IQD 150</h4>
+                                  <h4 className="font-w500">IQD {cartState.length ? '150' : '0'}</h4>
                                 </div>
                                 <div className="d-flex align-items-center justify-content-between mb-3">
                                   <h4 className="font-w500">Total</h4>
-                                  <h3 className="font-w500 text-primary">IQD {getTotalCartPrice()}</h3>
+                                  <h3 className="font-w500 text-primary">IQD {cartState.length ? getTotalCartPrice() : '0'}</h3>
                                 </div>
                                 <a href="#" onClick={(e) => {e.preventDefault(); proceedToCheckout()}} className="btn btn-primary btn-block">Place Order</a>
                               </div>
