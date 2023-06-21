@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { isLoggedInStateAtom, userStateAtom } from './utils/states/common';
+import { cartStateAtom, isLoggedInStateAtom, userStateAtom } from './utils/states/common';
 import AllOrder from './views/app/all-orders';
 import Dashboard from './views/app/dashboard';
 import Order from './views/app/order';
@@ -14,11 +14,16 @@ import Register from './views/auth/register';
 function App() {
   const setIsLoggedInState = useSetRecoilState(isLoggedInStateAtom);
   const setUserState = useSetRecoilState(userStateAtom);
+  const setCartState = useSetRecoilState(cartStateAtom);
 
   useEffect(() => {
     if (localStorage.getItem('token') && localStorage.getItem('user')) {
       setIsLoggedInState(true);
       setUserState(JSON.parse(localStorage.getItem('user')));
+    }
+    if (localStorage.getItem('cart')) {
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      setCartState(cart);
     }
   }, [])
 

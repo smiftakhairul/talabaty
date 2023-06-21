@@ -12,3 +12,12 @@ export const userStateAtom = atom({
   key: 'userStateAtom',
   default: null,
 });
+export const cartStateAtom = atom({
+  key: 'cartStateAtom',
+  default: [],
+});
+
+export const orderStateAtom = atom({
+  key: 'orderStateAtom',
+  default: null,
+});

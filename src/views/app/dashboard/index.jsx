@@ -7,11 +7,17 @@ import PreLoader from "../partials/pre-loader";
 import useApi from "../../../hooks/useApi";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { cartStateAtom } from "../../../utils/states/common";
+import useNotification from "../../../hooks/useNotification";
 
 const Dashboard = () => {
   const api = useApi();
   const [shops, setShops] = useState([]);
+  const navigate = useNavigate();
+  const notification = useNotification();
+  const [cartState, setCartState] = useRecoilState(cartStateAtom);
 
   useEffect(() => {
     getShops();
@@ -26,6 +32,41 @@ const Dashboard = () => {
         }
       })
   }
+
+  const addMenuToCart = (menu, shop) => {
+    const existingMenuIndex = cartState.findIndex(item => item.menu_id === menu.id);
+  
+    if (existingMenuIndex !== -1) {
+      const updatedCartState = [...cartState]; // Create a copy of the cartState array
+      const existingMenu = updatedCartState[existingMenuIndex]; // Get the existing menu from the copied array
+  
+      // Create a copy of the existingMenu object and update the quantity and total_price
+      const updatedMenu = {
+        ...existingMenu,
+        quantity: existingMenu.quantity + 1,
+        total_price: parseInt(parseFloat(existingMenu.unit_price) * (existingMenu.quantity + 1))
+      };
+  
+      updatedCartState[existingMenuIndex] = updatedMenu; // Replace the existingMenu with the updatedMenu
+      localStorage.setItem('cart', JSON.stringify(updatedCartState));
+      setCartState(updatedCartState); // Update the cartState with the updated array
+    } else {
+      let cartMenu = {
+        menu_id: menu?.id,
+        name: menu?.name,
+        unit_price: menu?.price,
+        quantity: 1,
+        profile_image: menu?.profile_images?.length ? menu?.profile_images[0] : null,
+      };
+      cartMenu.total_price = parseInt(parseFloat(cartMenu.unit_price) * cartMenu.quantity);
+  
+      localStorage.setItem('cart', JSON.stringify([...cartState, cartMenu]));
+      setCartState([...cartState, cartMenu]);
+    }
+
+    notification.success('Item added to cart.');
+    navigate('/shop/' + shop?.id);
+  };
 
   return (
     <>
@@ -96,7 +137,7 @@ const Dashboard = () => {
                                             <a href="javascript:void(0);"><h4>{menu?.name}</h4></a>
                                             <h3 className=" mb-0 text-primary">IQD {menu?.price}</h3>
                                           </div>
-                                          <div className="plus c-pointer">
+                                          <div className="plus c-pointer" onClick={() => addMenuToCart(menu, shop)}>
                                             <div className="sub-bx">
                                             </div>
                                           </div>

@@ -59,6 +59,10 @@ const useApi = () => {
     return await axiosClient.apiClient('GET', 'user-paginated-orders/' + id + '/?page=' + page);
   }
 
+  const createOrder = async (data) => {
+    return await axiosClient.apiClient('POST', 'orders/create/', data);
+  }
+
   return {
     login,
     register,
@@ -73,7 +77,8 @@ const useApi = () => {
     shops,
     shop,
     userOrders,
-    userPaginatedOrders
+    userPaginatedOrders,
+    createOrder
   };
 }
 

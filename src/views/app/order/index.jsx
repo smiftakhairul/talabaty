@@ -107,7 +107,7 @@ const Order = () => {
                       <div className="card h-auto deliver-order">
                         <div className="card-body">
                           <div className="d-flex align-items-center justify-content-between mb-4">
-                            <h4 className="cate-title mb-0">Ongoing Order</h4>
+                            <h4 className="cate-title mb-0">Ongoing Order <span className="ms-2"><img src="/images/loader.gif" height={50} alt="" /></span></h4>
                             {/* <div className="dropdown dropstart">
                               <a href="#" onClick={(e) => e.preventDefault()} className="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
